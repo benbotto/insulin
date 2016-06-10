@@ -72,5 +72,20 @@ describe('DependencyInjectionContainer suite', function()
     expect(p.getName()).toBe('Ben');
     expect(p.getJob().getPay(2)).toBe(100);
   });
+
+  // Checks that the cache can be cleared.
+  it('checks that the cache can be cleared.', function()
+  {
+    dic.factory('Ben', [], function()
+    {
+      return new Person('Ben');
+    });
+
+    var p1 = dic.get('Ben');
+    dic.forget();
+    var p2 = dic.get('Ben');
+
+    expect(p1).not.toBe(p2);
+  });
 });
 

@@ -64,6 +64,14 @@ class DependencyInjectionContainer
   {
     return this._factories[name] !== undefined;
   }
+
+  /**
+   * Clear all the resolved instances.
+   */
+  forget()
+  {
+    this._factories.forEach(factory => factory.instance = null);
+  }
 }
 
 module.exports = DependencyInjectionContainer;
