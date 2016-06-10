@@ -3,7 +3,6 @@
 // insulin is a dependency injection (DI) container using inversion of control
 // (IoC).
 var insulin = require('insulin');
-var app;
 
 // Add factories for express and moment.
 insulin
@@ -17,7 +16,7 @@ require('./getTimeString');
 // Initialize the app.
 insulin.run(['express', 'timeRouter'], function(express, timeRouter)
 {
-  app = express();
+  var app = express();
   app.use('/api', timeRouter);
   app.listen(3000);
   console.log('Listening on port 3000.');
