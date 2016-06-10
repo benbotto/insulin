@@ -57,6 +57,16 @@ class DependencyInjectionContainer
   }
 
   /**
+   * Run  func immediately, injecting in depends.
+   * @param depends An array of dependency names.
+   * @param func A function to run.
+   */
+  run(depends, func)
+  {
+    func.apply(null, depends.map(dep => this.get(dep)));
+  }
+
+  /**
    * Check, by name, if the DiC has a factory.
    * @param name The name of the factory.
    */
@@ -70,7 +80,8 @@ class DependencyInjectionContainer
    */
   forget()
   {
-    this._factories.forEach(factory => factory.instance = null);
+    for (var name in this._factories)
+      this._factories[name].instance = null;
   }
 }
 

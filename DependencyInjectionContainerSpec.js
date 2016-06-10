@@ -76,6 +76,8 @@ describe('DependencyInjectionContainer suite', function()
   // Checks that the cache can be cleared.
   it('checks that the cache can be cleared.', function()
   {
+    var dic = new DIC();
+
     dic.factory('Ben', [], function()
     {
       return new Person('Ben');
@@ -86,6 +88,27 @@ describe('DependencyInjectionContainer suite', function()
     var p2 = dic.get('Ben');
 
     expect(p1).not.toBe(p2);
+  });
+
+  // Checks the run method.
+  it('checks the run method.', function()
+  {
+    var dic = new DIC();
+
+    dic.factory('Ben', ['plumber'], function(plumber)
+    {
+      return new Person('Ben', plumber);
+    }).factory('plumber', [], function()
+    {
+      return new Job(50);
+    });
+
+    dic.run(['Ben', 'plumber'], function(ben, plumber)
+    {
+      expect(ben.getName()).toBe('Ben');
+      expect(plumber.getPay(1)).toBe(50);
+      expect(ben.getJob()).toBe(plumber);
+    });
   });
 });
 
