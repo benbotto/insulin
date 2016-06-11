@@ -12,5 +12,9 @@
     "insulin": "^1.0.0",
     "moment": "^2.13.0",
     "moment-timezone": "^0.5.4"
+  },
+  "devDependencies": {
+    "grunt": "^1.0.1",
+    "grunt-jasmine-nodejs": "^1.5.3"
   }
 }

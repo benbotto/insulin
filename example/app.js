@@ -11,7 +11,7 @@ insulin
 
 // Each of these registers itself as a factory.
 require('./timeRouter');
-require('./getTimeString');
+require('./getTime');
 
 // Initialize the app.
 insulin.run(['express', 'timeRouter'], function(express, timeRouter)
