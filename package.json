@@ -1,6 +1,6 @@
 {
   "name": "insulin",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An object-relational mapper for node.js using the data mapper pattern.",
   "main": "index.js",
   "author": "Ben Botto",
