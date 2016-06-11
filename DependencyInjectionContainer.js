@@ -19,8 +19,6 @@ class DependencyInjectionContainer
    */
   factory(name, depends, producer)
   {
-    depends = depends || [];
-
     this._factories[name] =
     {
       producer: producer,
@@ -57,7 +55,7 @@ class DependencyInjectionContainer
   }
 
   /**
-   * Run  func immediately, injecting in depends.
+   * Run func immediately, injecting in depends.
    * @param depends An array of dependency names.
    * @param func A function to run.
    */
