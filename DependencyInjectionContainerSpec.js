@@ -110,5 +110,23 @@ describe('DependencyInjectionContainer suite', function()
       expect(ben.getJob()).toBe(plumber);
     });
   });
+
+  // Checks the value returned from run.
+  it('checks the value returned from run.', function()
+  {
+    var dic = new DIC();
+
+    dic.factory('name', [], function()
+    {
+      return 'Ben';
+    });
+
+    var lName = dic.run(['name'], function(name)
+    {
+      return name.toLowerCase();
+    });
+
+    expect(lName).toBe('ben');
+  });
 });
 

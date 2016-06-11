@@ -55,13 +55,14 @@ class DependencyInjectionContainer
   }
 
   /**
-   * Run func immediately, injecting in depends.
+   * Run func immediately, injecting in depends.  Returns whatever is returned
+   * from func.
    * @param depends An array of dependency names.
    * @param func A function to run.
    */
   run(depends, func)
   {
-    func.apply(null, depends.map(dep => this.get(dep)));
+    return func.apply(null, depends.map(dep => this.get(dep)));
   }
 
   /**
