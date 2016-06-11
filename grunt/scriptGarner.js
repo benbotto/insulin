@@ -12,8 +12,7 @@ module.exports = function(verbose)
     return !script.match(/node_modules/) &&
            !script.match(/coverage/i) &&
            !script.match(/grunt/i) &&
-           !script.match(/Spec.js$/) &&
-           !script.match(/SpecX.js$/);
+           !script.match(/Spec.js$/);
   });
 
   // Grunt files.
