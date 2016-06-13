@@ -2,16 +2,18 @@ describe('timeRouter test suite.', function()
 {
   'use strict';
   
-  var insulin = require('insulin');
-  var express, router;
-  
   // Initialize the DiC.
   require('./timeRouter');
+  
+  var insulin;
+  var express, router;
 
   beforeEach(function()
   {
-    // Before each test, clear any cached instances.
-    insulin.forget();
+    // Before each test, get a mockable copy of insulin.  All the
+    // producers are intact, all the dependencies are copied, and
+    // all the instances are cleared.
+    insulin = require('insulin').mock();
 
     // Replace express in the container, with a fake Router implementation.
     express = jasmine.createSpyObj('express', ['Router']);
