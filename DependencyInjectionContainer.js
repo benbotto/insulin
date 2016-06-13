@@ -82,6 +82,20 @@ class DependencyInjectionContainer
     for (var name in this._factories)
       this._factories[name].instance = null;
   }
+
+  /**
+   * Create a copy of this DiC suitable for mocking.  All the producer functions
+   * and dependencies are copied, and all instances are forgotten.
+   */
+  mock()
+  {
+    var dic = new DependencyInjectionContainer();
+
+    for (var name in this._factories)
+      dic.factory(name, this._factories[name].depends.slice(), this._factories[name].producer);
+
+    return dic;
+  }
 }
 
 module.exports = DependencyInjectionContainer;

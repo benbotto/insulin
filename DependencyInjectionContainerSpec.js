@@ -128,5 +128,24 @@ describe('DependencyInjectionContainer suite', function()
 
     expect(lName).toBe('ben');
   });
+
+  // Checks the mock method.
+  it('checks the mock method.', function()
+  {
+    var dic = new DIC();
+    dic.factory('Ben', [], function()
+    {
+      return new Person('Ben');
+    });
+
+    var mock = dic.mock();
+    mock.factory('Ben', [], function()
+    {
+      return new Person('Joe');
+    });
+
+    expect(dic.get('Ben').getName()).toBe('Ben');
+    expect(mock.get('Ben').getName()).toBe('Joe');
+  });
 });
 
