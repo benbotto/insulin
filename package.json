@@ -1,10 +1,10 @@
 {
   "name": "insulin",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "Dependency injection container with inversion of control for node.js.",
   "main": "index.js",
   "author": "Ben Botto",
-  "license": "GPL",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git://github.com/benbotto/insulin.git"
@@ -15,5 +15,8 @@
     "grunt-contrib-jshint": "^0.11.2",
     "grunt-contrib-watch": "^0.6.1",
     "grunt-jasmine-nodejs": "^1.4.2"
+  },
+  "dependencies": {
+    "@avejidah/get-parameter-names": "^0.3.1"
   }
 }

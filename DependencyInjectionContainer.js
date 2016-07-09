@@ -1,5 +1,7 @@
 'use strict';
 
+let getParameterNames = require('@avejidah/get-parameter-names');
+
 class DependencyInjectionContainer {
   /**
    * Init.
@@ -9,16 +11,25 @@ class DependencyInjectionContainer {
   }
 
   /**
+   * Helper function to get the parameter names for a function.
+   * @param depends An array of dependency names, or a function from which
+   *        dependency names are derived.
+   */
+  annotate(depends) {
+    return (depends instanceof Function) ? getParameterNames(depends) : depends;
+  }
+
+  /**
    * Add a factory.  Blindly replaces if the factory already exists.
    * @param name The name of the factory.
-   * @param depends An array of dependency names.  The names should
+   * @param depends An optional array of dependency names.  The names should
    *        refer to other factories.
    * @param producer A producer function.
    */
   factory(name, depends, producer) {
     this._factories[name] = {
-      producer: producer,
-      depends:  depends,
+      producer: producer || depends,
+      depends:  this.annotate(depends),
       instance: null
     };
 
@@ -32,30 +43,29 @@ class DependencyInjectionContainer {
    * @param name The name of the factory.
    */
   get(name) {
-    var factory = this._factories[name];
+    let factory = this._factories[name];
 
     if (!factory)
-      throw new Error('Factory "' + name + '" does not exist.');
+      throw new Error(`Factory "${name}" does not exist.`);
 
-    // Producer hasn't yet been called.
     if (!factory.instance) {
       // Call the producer function, passing the dependencies as arguments.
       factory.instance = factory.producer.apply(null,
         factory.depends.map(dep => this.get(dep)));
     }
 
-    // Return the shared instance.
     return factory.instance;
   }
 
   /**
    * Run func immediately, injecting in depends.  Returns whatever is returned
    * from func.
-   * @param depends An array of dependency names.
+   * @param depends An optional array of dependency names.
    * @param func A function to run.
    */
   run(depends, func) {
-    return func.apply(null, depends.map(dep => this.get(dep)));
+    func = func || depends;
+    return func.apply(null, this.annotate(depends).map(dep => this.get(dep)));
   }
 
   /**
@@ -70,7 +80,7 @@ class DependencyInjectionContainer {
    * Clear all the resolved instances.
    */
   forget() {
-    for (var name in this._factories)
+    for (let name in this._factories)
       this._factories[name].instance = null;
   }
 
@@ -79,9 +89,9 @@ class DependencyInjectionContainer {
    * and dependencies are copied, and all instances are forgotten.
    */
   mock() {
-    var dic = new DependencyInjectionContainer();
+    let dic = new DependencyInjectionContainer();
 
-    for (var name in this._factories)
+    for (let name in this._factories)
       dic.factory(name, this._factories[name].depends.slice(), this._factories[name].producer);
 
     return dic;

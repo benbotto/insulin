@@ -12,13 +12,29 @@ For example:
 ```js
 'use strict';
 
-var insulin = require('insulin');
+let insulin = require('insulin');
+
+// Job class.
+insulin.factory('Job', function() {
+  class Job {
+    constructor(hourlyRate) {
+      this.hourlyRate = hourlyRate;
+    }
+  }
+
+  return Job;
+});
 
 // Person class.
-insulin.factory('Person', [], function() {
+insulin.factory('Person', function() {
   class Person {
-    constructor(name) {
+    constructor(name, job) {
       this.name = name;
+      this.job  = job;
+    }
+
+    getPay(hours) {
+      return this.job.hourlyRate * hours;
     }
   }
 
@@ -26,11 +42,12 @@ insulin.factory('Person', [], function() {
 });
 
 // Person instance.
-insulin.factory('ben', ['Person'], (Person) => new Person('Ben'));
+insulin.factory('ben', (Person, Job) => new Person('Ben', new Job(10)));
 
-// 'ben' requires Person, which is lazy resolve and injected into 'ben.'
+// 'ben' requires Person and Job, which are lazy resolved and injected.
 // Subsequent retrieval of 'ben' will always yeild the same instance.
-console.log(insulin.get('ben').name);
+let dev = insulin.get('ben');
+console.log(`${dev.name} is owed ${dev.getPay(3)} bucks.`);
 ```
 
-An real-world example of using insulin with Express is available in the example directory.  The example application has a single API endpoint: ```GET /api/time```.  By default, this endpoint returns the current time in UTC, in the format MM/DD/YYYY.  ```zone``` and ```format``` URL parameters can optionally be passed in, which allows for retrieving the time in a different timezone and format.  For example, ```/api/time?zone=America/New_York&format=HH:mm:ss```.  For an example of how to mock dependencies in a test suite, take a look at example/timeRouterSpec.js.
+A real-world example of using insulin with Express is available in the example directory.  The example application has a single API endpoint: ```GET /api/time```.  By default, this endpoint returns the current time in UTC, in the format MM/DD/YYYY.  ```zone``` and ```format``` URL parameters can optionally be passed in, which allows for retrieving the time in a different timezone and format.  For example, ```/api/time?zone=America/New_York&format=HH:mm:ss```.  For an example of how to mock dependencies in a test suite, take a look at example/timeRouterSpec.js.
