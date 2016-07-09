@@ -8,7 +8,7 @@ describe('getTime test suite.', function() {
 
   // Set up the DiC.
   require('./getTime');
-  insulin.factory('moment', [], () => require('moment-timezone'));
+  insulin.factory('moment', () => require('moment-timezone'));
 
   // Get a reference to the getTime function.
   getTime = insulin.get('getTime');

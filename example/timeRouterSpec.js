@@ -17,10 +17,10 @@ describe('timeRouter test suite.', function() {
     express = jasmine.createSpyObj('express', ['Router']);
     router  = jasmine.createSpyObj('router',  ['get']);
     express.Router.and.returnValue(router);
-    insulin.factory('express', [], () => express);
+    insulin.factory('express', () => express);
 
     // The getTime method is also mocked.
-    insulin.factory('getTime', [], () => 'mocked');
+    insulin.factory('getTime', () => 'mocked');
   });
 
   // Checks that a new router is created and returned.

@@ -1,8 +1,7 @@
 module.exports = function(grunt) {
   'use strict';
 
-  grunt.initConfig
-  ({
+  grunt.initConfig({
     jasmine_nodejs: {
       options: {
         specNameSuffix: 'Spec.js',
