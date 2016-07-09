@@ -1,23 +1,19 @@
 'use strict';
 
 // Person test class.
-class Person
-{
-  constructor(name, job)
-  {
+class Person {
+  constructor(name, job) {
     this.name = name;
     this.job  = job;
   }
 
   // Get a person's name.
-  getName()
-  {
+  getName() {
     return this.name;
   }
 
   // Get a person's job.
-  getJob()
-  {
+  getJob() {
     return this.job;
   }
 }

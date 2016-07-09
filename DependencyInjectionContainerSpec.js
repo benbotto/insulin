@@ -1,29 +1,24 @@
 'use strict';
 
-describe('DependencyInjectionContainer suite', function()
-{
+describe('DependencyInjectionContainer suite', function() {
   var DIC    = require('./DependencyInjectionContainer');
   var Job    = require('./resource/Job');
   var Person = require('./resource/Person');
 
   // Tries to get a nonexistant factory.
-  it('tries to get a nonexistant factory.', function()
-  {
+  it('tries to get a nonexistant factory.', function() {
     var dic = new DIC();
 
-    expect(function()
-    {
+    expect(function() {
       dic.get('NOPE');
     }).toThrowError('Factory "NOPE" does not exist.');
   });
 
   // Adds a factory.
-  it('adds a factory.', function()
-  {
+  it('adds a factory.', function() {
     var dic = new DIC();
 
-    dic.factory('Ben', [], function()
-    {
+    dic.factory('Ben', [], function() {
       return new Person('Ben');
     });
 
@@ -37,17 +32,14 @@ describe('DependencyInjectionContainer suite', function()
   });
 
   // Checks that a factory can be overwritten.
-  it('checks that a factory can be overwritten.', function()
-  {
+  it('checks that a factory can be overwritten.', function() {
     var dic = new DIC();
 
-    dic.factory('Ben', [], function()
-    {
+    dic.factory('Ben', [], function() {
       return new Person('Ben');
     });
 
-    dic.factory('Ben', [], function()
-    {
+    dic.factory('Ben', [], function() {
       return new Person('Bob');
     });
 
@@ -55,15 +47,12 @@ describe('DependencyInjectionContainer suite', function()
   });
 
   // Checks that dependencies can be requested and resolved.
-  it('checks that dependencies can be requested and resolved.', function()
-  {
+  it('checks that dependencies can be requested and resolved.', function() {
     var dic = new DIC();
 
-    dic.factory('Ben', ['plumber'], function(plumber)
-    {
+    dic.factory('Ben', ['plumber'], function(plumber) {
       return new Person('Ben', plumber);
-    }).factory('plumber', [], function()
-    {
+    }).factory('plumber', [], function() {
       return new Job(50);
     });
 
@@ -74,12 +63,10 @@ describe('DependencyInjectionContainer suite', function()
   });
 
   // Checks that the cache can be cleared.
-  it('checks that the cache can be cleared.', function()
-  {
+  it('checks that the cache can be cleared.', function() {
     var dic = new DIC();
 
-    dic.factory('Ben', [], function()
-    {
+    dic.factory('Ben', [], function() {
       return new Person('Ben');
     });
 
@@ -91,20 +78,16 @@ describe('DependencyInjectionContainer suite', function()
   });
 
   // Checks the run method.
-  it('checks the run method.', function()
-  {
+  it('checks the run method.', function() {
     var dic = new DIC();
 
-    dic.factory('Ben', ['plumber'], function(plumber)
-    {
+    dic.factory('Ben', ['plumber'], function(plumber) {
       return new Person('Ben', plumber);
-    }).factory('plumber', [], function()
-    {
+    }).factory('plumber', [], function() {
       return new Job(50);
     });
 
-    dic.run(['Ben', 'plumber'], function(ben, plumber)
-    {
+    dic.run(['Ben', 'plumber'], function(ben, plumber) {
       expect(ben.getName()).toBe('Ben');
       expect(plumber.getPay(1)).toBe(50);
       expect(ben.getJob()).toBe(plumber);
@@ -112,17 +95,14 @@ describe('DependencyInjectionContainer suite', function()
   });
 
   // Checks the value returned from run.
-  it('checks the value returned from run.', function()
-  {
+  it('checks the value returned from run.', function() {
     var dic = new DIC();
 
-    dic.factory('name', [], function()
-    {
+    dic.factory('name', [], function() {
       return 'Ben';
     });
 
-    var lName = dic.run(['name'], function(name)
-    {
+    var lName = dic.run(['name'], function(name) {
       return name.toLowerCase();
     });
 
@@ -130,17 +110,14 @@ describe('DependencyInjectionContainer suite', function()
   });
 
   // Checks the mock method.
-  it('checks the mock method.', function()
-  {
+  it('checks the mock method.', function() {
     var dic = new DIC();
-    dic.factory('Ben', [], function()
-    {
+    dic.factory('Ben', [], function() {
       return new Person('Ben');
     });
 
     var mock = dic.mock();
-    mock.factory('Ben', [], function()
-    {
+    mock.factory('Ben', [], function() {
       return new Person('Joe');
     });
 

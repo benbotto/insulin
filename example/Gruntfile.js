@@ -1,19 +1,15 @@
-module.exports = function(grunt)
-{
+module.exports = function(grunt) {
   'use strict';
 
   grunt.initConfig
   ({
-    jasmine_nodejs:
-    {
-      options:
-      {
+    jasmine_nodejs: {
+      options: {
         specNameSuffix: 'Spec.js',
         useHelpers:     false,
         stopOnFailure:  false
       },
-      all:
-      {
+      all: {
         specs: ['*Spec.js']
       }
     }

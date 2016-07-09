@@ -14,8 +14,7 @@ require('./timeRouter');
 require('./getTime');
 
 // Initialize the app.
-insulin.run(['express', 'timeRouter'], function(express, timeRouter)
-{
+insulin.run(['express', 'timeRouter'], function(express, timeRouter) {
   var app = express();
   app.use('/api', timeRouter);
   app.listen(3000);

@@ -1,16 +1,13 @@
 'use strict';
 
 // Job test class.
-class Job
-{
-  constructor(hourlyRate)
-  {
+class Job {
+  constructor(hourlyRate) {
     this.hourlyRate = hourlyRate;
   }
 
   // Get the pay.
-  getPay(hours)
-  {
+  getPay(hours) {
     return this.hourlyRate * hours;
   }
 }

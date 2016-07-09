@@ -1,12 +1,9 @@
-module.exports = function(grunt, scripts)
-{
+module.exports = function(grunt, scripts) {
   'use strict';
 
-  var jshint =
-  {
+  var jshint = {
     /* Global options. */
-    options:
-    {
+    options: {
       strict:    true,
       eqeqeq:    true,
       indent:    2,
@@ -17,21 +14,16 @@ module.exports = function(grunt, scripts)
     },
 
     /* Get the lint out of all app files. */
-    app:
-    {
-      files:
-      {
+    app: {
+      files: {
         src: scripts.app
       }
     },
 
     /* Unit tests. */
-    unitTests:
-    {
-      options:
-      {
-        globals:
-        {
+    unitTests: {
+      options: {
+        globals: {
           describe:   true,
           xdescribe:  true,
           it:         true,
@@ -45,17 +37,14 @@ module.exports = function(grunt, scripts)
           console:    true
         }
       },
-      files:
-      {
+      files: {
         src: scripts.spec
       }
     },
 
     /* Grunt files. */
-    grunt:
-    {
-      files:
-      {
+    grunt: {
+      files: {
         src: scripts.grunt
       }
     },

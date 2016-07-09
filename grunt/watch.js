@@ -1,13 +1,9 @@
-module.exports = function(grunt, scripts)
-{
+module.exports = function(grunt, scripts) {
   'use strict';
 
-  var watch =
-  {
-    test:
-    {
-      options:
-      {
+  var watch = {
+    test: {
+      options: {
         atBegin: true
       },
       files: scripts.app.concat(scripts.spec),

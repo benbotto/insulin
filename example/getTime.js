@@ -3,8 +3,7 @@
 require('insulin')
   .factory('getTime',
   ['moment'],
-  function(moment)
-  {
+  function(moment) {
     /**
      * Get the date and time for a given timezone in the requested format.
      * @param req An express request object, which may have these optional
@@ -16,8 +15,7 @@ require('insulin')
      *
      * @param res An express response object.
      */
-    return function(req, res)
-    {
+    return function(req, res) {
       var zone   = req.query.zone   || 'utc';
       var format = req.query.format || 'MM/DD/YYYY HH:mm:ss';
 

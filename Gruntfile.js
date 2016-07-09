@@ -1,5 +1,4 @@
-module.exports = function(grunt)
-{
+module.exports = function(grunt) {
   'use strict';
 
   var scripts = (require('./grunt/scriptGarner.js'))();

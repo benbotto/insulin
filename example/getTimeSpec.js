@@ -1,5 +1,4 @@
-describe('getTime test suite.', function()
-{
+describe('getTime test suite.', function() {
   'use strict';
 
   /** Trivial tests with no dependency swapping. **/
@@ -14,8 +13,7 @@ describe('getTime test suite.', function()
   // Get a reference to the getTime function.
   getTime = insulin.get('getTime');
 
-  beforeEach(function()
-  {
+  beforeEach(function() {
     // Mocked request and response objects.
     req = {query: {}};
     res = jasmine.createSpyObj('res', ['status', 'json']);
@@ -23,16 +21,14 @@ describe('getTime test suite.', function()
   });
 
   // Checks the default zone and format.
-  it('checks the default zone and format.', function()
-  {
+  it('checks the default zone and format.', function() {
     getTime(req, res);
     expect(res.json.calls.argsFor(0)[0])
       .toMatch(/^\d{2}\/\d{2}\/\d{4} \d{2}:\d{2}:\d{2}$/);
   });
 
   // Checks a different format.
-  it('checks a different format.', function()
-  {
+  it('checks a different format.', function() {
     req.query.format = 'HH';
     getTime(req, res);
 
@@ -40,8 +36,7 @@ describe('getTime test suite.', function()
   });
 
   // Checks an invalid zone.
-  it('checks an invalid zone.', function()
-  {
+  it('checks an invalid zone.', function() {
     req.query.zone = 'FOO';
     getTime(req, res);
 
